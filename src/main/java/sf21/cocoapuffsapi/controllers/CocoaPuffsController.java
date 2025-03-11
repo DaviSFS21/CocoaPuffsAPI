@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/cocoa_puffs")
 public class CocoaPuffsController {
     private List<CocoaPuff> cocoaPuffs = new ArrayList<>();
@@ -39,7 +40,7 @@ public class CocoaPuffsController {
     }
 
     @PostMapping
-    CocoaPuff postCocoaPuff(@RequestBody String name) {
+    CocoaPuff postCocoaPuff(@RequestParam String name) {
         CocoaPuff cp = new CocoaPuff(name);
         cocoaPuffs.add(cp);
         return cp;
@@ -47,7 +48,10 @@ public class CocoaPuffsController {
 
     @PutMapping("/{id}")
     ResponseEntity<CocoaPuff> putCocoaPuff(@PathVariable String id,
-                                           @RequestBody String name) {
+                                           @RequestParam String name) {
+
+        System.out.println(name);
+
         CocoaPuff cocoaPuff = new CocoaPuff(name);
         int cocoaPuffIndex = -1;
 
